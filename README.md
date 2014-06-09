@@ -1,4 +1,4 @@
 blackjack_game
 ==============
 
-A simple test oriented blackjack game written in ruby.
+A simple text-oriented blackjack game written in Ruby.
