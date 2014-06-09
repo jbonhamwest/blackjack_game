@@ -52,7 +52,15 @@ class HandTest < MiniTest::Unit::TestCase
   end
 
   def test_hand_can_give_away_all_its_cards
-    hand = nil
-  end
+    hand = Hand.new
+    card1 = Card.new(7, :clubs)
+    hand.add_a_card(card1)
+    card2 = Card.new(:Q, :spades)
+    hand.add_a_card(card2)
 
+    my_cards = hand.clear
+    assert_equal 0, hand.contents.size
+    assert_equal 2, my_cards.size
+
+  end
 end

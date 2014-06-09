@@ -35,6 +35,13 @@ class Hand
     end
     return_string = return_string + "]"
   end
+
+  def clear
+    return_hand = @hand
+    @hand.clear
+    return_hand
+  end
+end
   # def hand_value(hand)
   #   value = 0
   #   # First calculate values ignoring aces
@@ -61,4 +68,3 @@ class Hand
   #   end
   #   value
   # end
-end
