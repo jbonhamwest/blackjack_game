@@ -1,14 +1,29 @@
 # This is a game of blackjack.
 require 'card'
 require 'deck'
+require 'player'
 # Anything that is calculated you don't have to initialize.
 # This is a game of blackjack.
 class Blackjack
   def initialize
     # @deck = Deck.new
     # @deck.shuffle
-    @players_hand = []
+    @dealer = Player.new
+    @deck = Deck.new
+    @players = []
   end
+
+  def dealer
+    @dealer
+  end
+
+  def deck
+    @deck
+  end
+
+  def players
+    @players
+  end      
 
   def play
   end
@@ -22,7 +37,7 @@ class Blackjack
     when :K then 10
     end
   end
-  
+
   def finished
     # return true
     # You may also notice the lack of a return statement.

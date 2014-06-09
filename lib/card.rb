@@ -29,7 +29,7 @@ class Card # begin the creation of the class Card.
 
   def rank # This type of method is called an "accessor" method;
     # it can only access the instance variable "rank"--the getter. If we don't do this
-    # the instance variable is not accessible to things outside their own
+    # the instance variable is not accessible to things outside their own class.
     @rank
   end
 

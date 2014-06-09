@@ -1,20 +1,19 @@
 # This class defines the deck.
 # The deck's role is to be able to represent a collection of cards, to be able
-# to randomize (shuffle) the cards, and take cards out of the deck.
+# to randomize (shuffle) the cards after each round, and take cards out of the deck
+# in the course of a single game.
 class Deck
-  def initialize(quantity)
-    @deck = []
+  def initialize
+    @deck = Array.new
   end
 
   def deck
     @deck
   end
 
-  def quantity
+  def size
     @deck.size
-=begin
-Anytime you have a class with a collection, you need to include a method for tracking the size.
-=end
+# Anytime you have a class with a collection, include a method for tracking the size.
   end
 
   def create_deck

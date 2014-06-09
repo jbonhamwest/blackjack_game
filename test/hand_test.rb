@@ -61,6 +61,5 @@ class HandTest < MiniTest::Unit::TestCase
     my_cards = hand.clear
     assert_equal 0, hand.contents.size
     assert_equal 2, my_cards.size
-
   end
 end

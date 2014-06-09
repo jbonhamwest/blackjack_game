@@ -37,7 +37,7 @@ class Hand
   end
 
   def clear
-    return_hand = @hand
+    return_hand = Array.new(@hand)
     @hand.clear
     return_hand
   end
