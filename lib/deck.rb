@@ -5,6 +5,7 @@
 class Deck
   def initialize
     @deck = Array.new
+    @suits = [:spades, :diamonds, :hearts, :clubs]
   end
 
   def deck
@@ -22,7 +23,7 @@ class Deck
     # this method gives you all 13 cards from one suit. This is repeated for all four suits
     # after 13 cards have been created, index will be set to 1.
     index = 0
-    while index < 4
+    while index < @suits.size
       # when the index has done this 4 times at points 0..3 of the array,
       # it has created all 13 cards in all 4 suits.
       @deck.push(Card.new(:A, @suits[index]))
@@ -40,23 +41,29 @@ class Deck
       @deck.push(Card.new(:K, @suits[index]))
       index += 1
     end # while
+    @deck.shuffle!
   end # create_deck
 
   def draw
+    card = @deck.pop
     # use the pop method on @deck to indicate one card has been turned over
+    if @deck.size == 0
+      create_deck
+    end
+    card
   end
 
   def cards_left
+    @deck.size
   end
 
   def shuffle!
     # .shuffle method will work on @deck
+    @deck.shuffle
   end
 
   def size
-  end
-
-  def test_that_deck_has_52_cards
+    @deck.size
   end
 end
 

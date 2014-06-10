@@ -19,6 +19,10 @@ class Hand
     @hand
   end
 
+  def size
+    @hand.size
+  end
+
   def add_a_card(new_card)
     @hand.push new_card
   end

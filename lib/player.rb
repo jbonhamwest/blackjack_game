@@ -9,6 +9,14 @@ class Player
   def hand
     @hand
   end
+
+  def hit_me?
+    true
+  end
+
 end
 
 # The dealer is also a player.
+# can add a methoed to learn if the player gets blackjack
+# blackjack?
+# hand_value
