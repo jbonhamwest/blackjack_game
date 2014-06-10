@@ -19,14 +19,14 @@ So, I changed my completion expectations to the following:
 Submit (collaboratively-created) code that successfully would run a game.
 
 Future work could include:
-# 1. Debug the logic bug to correctly represent the rules of blackjack (when a player takes a hit in a round, the dealer also takes a hit in that round.)
+--Debug the logic bug to correctly represent the rules of blackjack (when a player takes a hit in a round, the dealer also takes a hit in that round.)
 Currently, my dealer doesn't take a card until the player stands.
-# 2. Use inheritance in the game, if it makes sense, or explain why it doesn't make sense to use it.
+--Use inheritance in the game, if it makes sense, or explain why it doesn't make sense to use it.
 (Dealers and Players often can have a superclass.)
-# 3. Make Decks and Hands Enumerable objects, if it makes sense to do so.
+--Make Decks and Hands Enumerable objects, if it makes sense to do so.
 If it makes sense to do so, change your code to use Enumerable methods.
 If it doesn't make sense, write up why in your README.
-# 4. Edit code to include adjustment for ace as 1 or 11.
-# 5. Reduce clutter in the blackjack.play method
-# 6. Learn how to use additional iterators for arrays beyond the while loop.
-# 7. Add betting and scoring features.
+--Edit code to include adjustment for ace as 1 or 11.
+--Reduce clutter in the blackjack.play method
+--Learn how to use additional iterators for arrays beyond the while loop.
+--Add betting and scoring features.
