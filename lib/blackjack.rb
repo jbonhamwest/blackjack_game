@@ -12,6 +12,7 @@ class Blackjack
     @deck = Deck.new
     @players = []
     @finished = false
+    @house = 0
   end
 
   def dealer
@@ -32,15 +33,26 @@ class Blackjack
     puts "Welcome to blackjack!"
     while !@finished
       puts "\n\nLet's play a round"
+      @pot = 0
       @dealer.hand.add_a_card(@deck.draw)
       @players[0].hand.add_a_card(@deck.draw)
       @dealer.hand.add_a_card(@deck.draw)
       @players[0].hand.add_a_card(@deck.draw)
 
-      puts " player[0]: value: #{value(@players[0].hand)} #{@players[0].hand} "
-      puts " dealer:    value: #{value(@dealer.hand)} #{@dealer.hand} "
+      puts " player[0]: bank: #{@players[0].bank} value: #{value(@players[0].hand)} #{@players[0].hand} "
+      puts " dealer:    bank: #{@house} value: #{value(@dealer.hand)} #{@dealer.hand} "
       quit_game = false
       end_round = false
+
+      print "Bets are $10. Would you like to place a bet?"
+      answer = gets.chomp
+
+      if answer == "y"
+        @pot += 10
+        @players[0].bet 10
+      else
+        end_round = true
+      end
 
       while !end_round
         print " hit(h), stand (s), or quit (q)? "
@@ -57,9 +69,11 @@ class Blackjack
           puts " player[0]: value: #{value(@players[0].hand)} #{@players[0].hand}"
           if value(@players[0].hand) > 21
             puts " !!Player[0] busted!!"
+            @house += @pot
             end_round = true
           elsif value(@players[0].hand) == 21
             puts " !!!!!!Player[0] wins!!!!!!!"
+            @players[0].win @pot
             end_round = true
           end
         end
@@ -74,9 +88,11 @@ class Blackjack
         puts " dealer:    value: #{value(@dealer.hand)} #{@dealer.hand} "
         if value(@dealer.hand) > 21
           puts " !!!Dealer has busted!!!"
+          @players[0].win @pot
           end_round = true
         elsif value(@players[0].hand) == 21
           puts " !!!!Dealer Wins!!!!"
+          @house += @pot
           end_round = true
         end
       end
@@ -84,12 +100,30 @@ class Blackjack
       if !end_round
         if value(@players[0].hand) > value(@dealer.hand)
           puts " !!!!!Player[0] wins!!!!!"
+          @players[0].win @pot
+        elsif ace?(@players[0].hand)
+          # if there's an ace in the hand, the elsif statement returns true
+          # test if the value of the player's is hand less than 11 and
+          # test if the value of the player's hand is greater than the hand of the dealer
+          if (value(@players[0].hand) < 11) and ((value(@players[0].hand) + 10) > value(@dealer.hand))
+            puts " !!!!!Player[0] wins!!!!!"
+            @players[0].win @pot
+          else
+            puts " !!!!Dealer wins!!!!"
+            @house += @pot
+          end
         else
           puts " !!!!Dealer wins!!!!"
+          @house += @pot
         end
       end
       @dealer.hand.clear
       @players[0].hand.clear
+      if @players[0].bank == 0
+        puts "You are out of money...game over! Come and see us again and thanks for playing!"
+        @finished = true
+        break
+      end
     end
   end
 
@@ -107,11 +141,34 @@ class Blackjack
   def value(hand)
     index = 0
     return_value = 0
+    ace_in_hand = false
     while (index < hand.contents.size)
-      return_value = return_value + numerical_rank(hand.contents[index].rank)
-      index = index + 1
+      return_value += numerical_rank(hand.contents[index].rank)
+      if hand.contents[index].rank == :A
+        ace_in_hand = true
+      end
+      index += 1
+    end
+    if ace_in_hand == true
+      if return_value == 11
+        return_value += 10
+      end
     end
     return_value
+    # If there's an ace in the hand, we return the value as an 11 and the total is 21.
+  end
+
+  def ace?(hand)
+    index = 0
+    ace_in_hand = false
+    while (index < hand.contents.size)
+      if hand.contents[index].rank == :A
+        ace_in_hand = true
+      end
+      index += 1
+    end
+    ace_in_hand
+    # An ace was found in the hand.
   end
 
     def finished

@@ -2,21 +2,21 @@
 # some of the same rules as a player does but not all.
 require 'hand'
 class Player
+  attr_reader :hand, :bank
   def initialize
     @hand = Hand.new
+    @bank = 100
   end
 
-  def hand
-    @hand
+  def win(chips)
+    @bank += chips
+  end
+
+  def bet(chips)
+    @bank -= chips
   end
 
   def hit_me?
     true
   end
-
 end
-
-# The dealer is also a player.
-# can add a methoed to learn if the player gets blackjack
-# blackjack?
-# hand_value

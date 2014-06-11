@@ -1,0 +1,8 @@
+#! /bin/bash
+game_home="`dirname $0`/.."
+
+ruby -I${game_home}/lib ${game_home}/lib/blackjack.rb
+  #This Shell Script ./bin/blackjack file works for running the blackjack game by setting a variable
+  # game_home and then executing Ruby over the script lib/blackjack.rb This means the developer
+  # no longer has to go into the shell and actively type in the command
+  #   -I./lib lib/blackjack.rb

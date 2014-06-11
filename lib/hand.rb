@@ -1,8 +1,8 @@
-# Role and responsibilities include keeping tracking of the card set he has,
-# he has to be able to add a single card into his hand
-# must be able to give a reference to the cards he has (the array)
-# must be able to give away all his cards
-# display info about the hand of individual cards he has (as a string)
+# Role and responsibilities include keeping tracking of the card set hand has,
+# has to be able to add a single card into hand
+# must be able to give a reference to the cards hand has (the array)
+# must be able to give away all hand's cards
+# display info about the hand of individual cards hand has (as a string)
 
 # when you have a collection that you are going to search, you often will
 # want to use a method of collectionname.include, where collection name is the name of the collection.
@@ -46,29 +46,3 @@ class Hand
     return_hand
   end
 end
-  # def hand_value(hand)
-  #   value = 0
-  #   # First calculate values ignoring aces
-  #   hand.each do |c|
-  #
-  #     if c.suit == :A
-  #       next
-  #     elsif [:J, :Q, :K].include? c.suit
-  #       value += 10
-  #     else
-  #       value += c.suit
-  #     end
-  #   end
-  #
-  #   # Then add aces as 11 unless they would bust the hand
-  #   hand.each do |c|
-  #     if c.suit == :A
-  #       if value > 10
-  #         value += 1
-  #       else
-  #         value += 11
-  #       end
-  #     end
-  #   end
-  #   value
-  # end

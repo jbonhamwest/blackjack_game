@@ -14,7 +14,7 @@ class Deck
 
   def size
     @deck.size
-# Anytime you have a class with a collection, include a method for tracking the size.
+# Any time you have a class with a collection, include a method for tracking the size.
   end
 
   def create_deck
@@ -40,9 +40,9 @@ class Deck
       @deck.push(Card.new(:Q, @suits[index]))
       @deck.push(Card.new(:K, @suits[index]))
       index += 1
-    end # while
+    end # while logic
     @deck.shuffle!
-  end # create_deck
+  end # create_deck method
 
   def draw
     card = @deck.pop
@@ -66,6 +66,3 @@ class Deck
     @deck.size
   end
 end
-
-# Call a draw; make a finite deck. Card can have a random suit,
-# random rank.

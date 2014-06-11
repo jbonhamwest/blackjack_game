@@ -2,31 +2,53 @@ blackjack_game
 ==============
 
 A simple text-oriented blackjack game written in Ruby.
-
-#add description of game rules here,including types of moves that can happen
-
-h = Hit
-q = Quit
-s = Stand
+Disclaimer:
+I accessed the knowledge and help of student peers, instructors, and spouses to
+complete and submit (collaboratively-created) code that runs successfully.
 
 
-Disclaimers:
-It be less than honest to say I wrote all of this code under my own steam.
-For my current level of understanding, I found I needed the help of student peers, instructors,
-lots o'research and study, and spouses to complete this much of this assignment.
-So, I changed my completion expectations to the following:
 
-Submit (collaboratively-created) code that successfully would run a game.
+How to Run this Program
+cd into the blackjack program folder and
+execute ruby by tying in the following characters
+-I./lib lib/blackjack.rb
+
+Follow the prompts to play the game.
+
+----
+How to Run Tests for this Program
+cd into the blackjack program folder and
+execute rake by typing in the word
+rake
+
+----
+Features Completed
+
+This project was started in my first week of software development education, so I included
+extensive comments to help solidify my understanding of core programming elements and structures,
+and TDD methods. Typically a developer would not include this type/degree of commenting for future reference.
+
+Bets limited to $10
+Player may bet until player runs out of money
+Deck is shuffled after every round
+Play options are limited to hit, stand, and hold
+Created shell script to execute Ruby for the blackjack program
+
+____
+Features Not Completed
+Double-down
+Chips undefined; were given a discreet value of $10
+
+____
+Features not Used
+Inheritance: we primarily treated the Dealer as a Player and did not create a separate
+dealer.rb file. Therefore, no inheritance naturally applied to these two classes. 
 
 Future work could include:
---Debug the logic bug to correctly represent the rules of blackjack (when a player takes a hit in a round, the dealer also takes a hit in that round.)
-Currently, my dealer doesn't take a card until the player stands.
---Use inheritance in the game, if it makes sense, or explain why it doesn't make sense to use it.
-(Dealers and Players often can have a superclass.)
+
+--Convert Ruby script to binary executable.
 --Make Decks and Hands Enumerable objects, if it makes sense to do so.
 If it makes sense to do so, change your code to use Enumerable methods.
 If it doesn't make sense, write up why in your README.
---Edit code to include adjustment for ace as 1 or 11.
 --Reduce clutter in the blackjack.play method
---Learn how to use additional iterators for arrays beyond the while loop.
---Add betting and scoring features.
+--Learn how to use additional iterators for arrays beyond the while loop (until, map, times, etc.).
