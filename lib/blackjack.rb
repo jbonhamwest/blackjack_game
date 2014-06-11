@@ -5,26 +5,51 @@ require 'player'
 # Anything that is calculated you don't have to initialize.
 # This is a game of blackjack.
 class Blackjack
+  attr_reader :dealer, :deck, :players, :finished
   def initialize
-    # @deck = Deck.new
-    # @deck.shuffle
     @dealer = Player.new
     @deck = Deck.new
     @players = []
     @finished = false
     @house = 0
+    @pot = 0
   end
 
-  def dealer
-    @dealer
+  def start_a_round
+    puts "\n\nLet's play a round"
+    @pot = 0
+    @dealer.hand.add_a_card(@deck.draw)
+    @players[0].hand.add_a_card(@deck.draw)
+    @dealer.hand.add_a_card(@deck.draw)
+    @players[0].hand.add_a_card(@deck.draw)
   end
 
-  def deck
-    @deck
+  def player_wins
+    puts " !!!!!!Player[0] wins!!!!!!!"
+    @players[0].win @pot
   end
 
-  def players
-    @players
+  def player_busts
+    puts " !!!Player[0] has busted!!!"
+    @house += @pot
+  end
+
+  def dealer_wins
+    puts " !!!!Dealer Wins!!!!"
+    @house += @pot
+  end
+
+  def dealer_busts
+    puts " !!!Dealer has busted!!!"
+    @players[0].win @pot
+  end
+
+  def display_player
+    puts " player[0]: bank: #{@players[0].bank} value: #{value(@players[0].hand)} #{@players[0].hand} "
+  end
+
+  def display_dealer
+    puts " dealer:    bank: #{@house} value: #{value(@dealer.hand)} #{@dealer.hand} "
   end
 
   def play
@@ -32,15 +57,10 @@ class Blackjack
     @players.push(Player.new)
     puts "Welcome to blackjack!"
     while !@finished
-      puts "\n\nLet's play a round"
-      @pot = 0
-      @dealer.hand.add_a_card(@deck.draw)
-      @players[0].hand.add_a_card(@deck.draw)
-      @dealer.hand.add_a_card(@deck.draw)
-      @players[0].hand.add_a_card(@deck.draw)
+      start_a_round
+      display_player
+      display_dealer
 
-      puts " player[0]: bank: #{@players[0].bank} value: #{value(@players[0].hand)} #{@players[0].hand} "
-      puts " dealer:    bank: #{@house} value: #{value(@dealer.hand)} #{@dealer.hand} "
       quit_game = false
       end_round = false
 
@@ -66,61 +86,56 @@ class Blackjack
 
         if answer == "h"
           @players[0].hand.add_a_card(@deck.draw)
-          puts " player[0]: value: #{value(@players[0].hand)} #{@players[0].hand}"
-          if value(@players[0].hand) > 21
-            puts " !!Player[0] busted!!"
-            @house += @pot
+          display_player
+          players_value = value(@players[0].hand)
+          if players_value > 21
+            player_busts
             end_round = true
-          elsif value(@players[0].hand) == 21
-            puts " !!!!!!Player[0] wins!!!!!!!"
-            @players[0].win @pot
+          elsif players_value == 21
+            player_wins
             end_round = true
           end
         end
 
         if answer == "s"
+          players_value = value(@players[0].hand)
           break
         end
       end
 
       while (end_round == false) && (value(@dealer.hand) < 17)
         @dealer.hand.add_a_card(@deck.draw)
-        puts " dealer:    value: #{value(@dealer.hand)} #{@dealer.hand} "
-        if value(@dealer.hand) > 21
-          puts " !!!Dealer has busted!!!"
-          @players[0].win @pot
+        display_dealer
+        dealers_value = value(@dealer.hand)
+        if dealers_value > 21
+          dealer_busts
           end_round = true
-        elsif value(@players[0].hand) == 21
-          puts " !!!!Dealer Wins!!!!"
-          @house += @pot
+        elsif players_value == 21
+          dealer_wins
           end_round = true
         end
       end
 
       if !end_round
-        if value(@players[0].hand) > value(@dealer.hand)
-          puts " !!!!!Player[0] wins!!!!!"
-          @players[0].win @pot
+        if players_value > dealers_value
+          player_wins
         elsif ace?(@players[0].hand)
           # if there's an ace in the hand, the elsif statement returns true
           # test if the value of the player's is hand less than 11 and
           # test if the value of the player's hand is greater than the hand of the dealer
-          if (value(@players[0].hand) < 11) and ((value(@players[0].hand) + 10) > value(@dealer.hand))
-            puts " !!!!!Player[0] wins!!!!!"
-            @players[0].win @pot
+          if (players_value < 11) and ((players_value + 10) > dealers_value)
+            player_wins
           else
-            puts " !!!!Dealer wins!!!!"
-            @house += @pot
+            dealer_wins
           end
         else
-          puts " !!!!Dealer wins!!!!"
-          @house += @pot
+          dealer_wins
         end
       end
       @dealer.hand.clear
       @players[0].hand.clear
       if @players[0].bank == 0
-        puts "You are out of money...game over! Come and see us again and thanks for playing!"
+        puts "You are out of money...game over! Come and see us again, and thanks for playing!"
         @finished = true
         break
       end
@@ -170,17 +185,7 @@ class Blackjack
     ace_in_hand
     # An ace was found in the hand.
   end
-
-    def finished
-    # return true
-    # You may also notice the lack of a return statement.
-    # It is unneeded because a ruby function returns the last thing
-    # that was evaluated in it.
-    # Use of a return statement here is permissible but unnecessary.
-  end
 end
-
-
 
 game = Blackjack.new
 game.play
