@@ -156,16 +156,12 @@ class Blackjack
   def value(hand)
     index = 0
     return_value = 0
-    ace_in_hand = false
     while (index < hand.contents.size)
       return_value += numerical_rank(hand.contents[index].rank)
-      if hand.contents[index].rank == :A
-        ace_in_hand = true
-      end
       index += 1
     end
-    if ace_in_hand == true
-      if return_value == 11
+    if hand.aces? > 0
+      if return_value <= 11
         return_value += 10
       end
     end
@@ -174,16 +170,7 @@ class Blackjack
   end
 
   def ace?(hand)
-    index = 0
-    ace_in_hand = false
-    while (index < hand.contents.size)
-      if hand.contents[index].rank == :A
-        ace_in_hand = true
-      end
-      index += 1
-    end
-    ace_in_hand
-    # An ace was found in the hand.
+    hand.aces? > 0
   end
 end
 

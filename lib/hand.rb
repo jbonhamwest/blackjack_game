@@ -13,6 +13,7 @@ class Hand
   def initialize # The initialize method is used during the new method
     # to fill in the contents of the class.
     @hand = [] # The instance variable is assigned the value of the contents of the array.
+    @aces = 0
   end
 
   def contents # This is the method that will make it possible for the hand to reference the cards it has.
@@ -25,6 +26,9 @@ class Hand
 
   def add_a_card(new_card)
     @hand.push new_card
+    if (new_card.rank == :A)
+        @aces += 1
+    end
   end
 # Here there be dragons
   def to_s
@@ -39,10 +43,15 @@ class Hand
     end
     return_string = return_string + "]"
   end
+  
+  def aces?
+    @aces
+  end
 
   def clear
     return_hand = Array.new(@hand)
     @hand.clear
+    @aces = 0
     return_hand
   end
 end
